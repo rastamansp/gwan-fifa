@@ -1,26 +1,47 @@
 import type { StickerResult } from '@gwan-fifa/core';
 
-/**
- * STUB (F00). Implementação real em **F06**:
- * - preview da figurinha (`imageUrl`) + botão Download (URL assinada direta do MinIO)
- * - aviso de validade (`expiresIn`) + "gerar outra"
- */
 export interface StickerPreviewProps {
   result: StickerResult;
   onRestart: () => void;
 }
 
+/**
+ * F06 — preview + download + "gerar outra".
+ * No mock, `imageUrl` é um data URL (PNG) gerado no client; o download
+ * baixa esse PNG. Com o backend, será a URL assinada do MinIO (REQ-F06-03).
+ */
 export function StickerPreview({ result, onRestart }: StickerPreviewProps) {
   return (
     <section className="sticker-preview">
       {result.imageUrl ? (
-        <img src={result.imageUrl} alt="Figurinha gerada" />
+        <img
+          src={result.imageUrl}
+          alt="Figurinha gerada"
+          className="sticker-image"
+        />
       ) : (
-        <p className="placeholder">Preview — a implementar (F06).</p>
+        <p className="placeholder">Sem imagem.</p>
       )}
-      <button type="button" onClick={onRestart}>
-        Gerar outra
-      </button>
+
+      <div className="preview-actions">
+        {result.imageUrl && (
+          <a
+            className="btn-primary"
+            href={result.imageUrl}
+            download={`figurinha-${result.id}.png`}
+          >
+            Baixar figurinha
+          </a>
+        )}
+        <button type="button" className="btn-ghost" onClick={onRestart}>
+          Gerar outra
+        </button>
+      </div>
+
+      <p className="mock-note">
+        Pré-visualização <strong>mock</strong> (composição no navegador). A versão
+        final usará Claude (visão) + composição no servidor.
+      </p>
     </section>
   );
 }

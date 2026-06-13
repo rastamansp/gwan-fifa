@@ -2,7 +2,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  Length,
   Matches,
   MaxLength,
 } from 'class-validator';
@@ -31,13 +30,4 @@ export class GenerateDto implements StickerData {
   @IsOptional()
   @IsString()
   weight?: string;
-
-  @IsOptional()
-  @IsString()
-  club?: string;
-
-  @IsOptional()
-  @IsString()
-  @Length(3, 3, { message: 'country deve ser ISO3 (ex.: BRA)' })
-  country?: string;
 }

@@ -1,0 +1,30 @@
+# deps
+node_modules/
+
+# build outputs
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+
+# env / secrets (NUNCA commitar chaves)
+.env
+.env.*
+!.env.example
+
+# vite
+apps/web/dist/
+
+# mkdocs (docs site build)
+site/
+_site/
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / os
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

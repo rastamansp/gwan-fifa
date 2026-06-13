@@ -1,0 +1,71 @@
+# Documentação do projeto Gwan FIFA (MkDocs Material) — padrão GWAN GitHub Pages.
+# Publicado via .github/workflows/docs.yml em https://rastamansp.github.io/gwan-fifa/
+
+site_name: "GWAN — Gwan FIFA"
+site_description: "Documentação do projeto GWAN — Gwan FIFA (ecossistema gwan.cloud)."
+site_url: "https://rastamansp.github.io/gwan-fifa/"
+site_author: "GWAN Cloud"
+
+repo_name: "rastamansp/gwan-fifa"
+repo_url: "https://github.com/rastamansp/gwan-fifa"
+edit_uri: "edit/main/docs/"
+
+# Pasta com os .md. Padrão GWAN: documentação fica em docs/.
+docs_dir: docs
+
+theme:
+  name: material
+  language: pt-BR
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Tema escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Tema claro
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.tabs
+    - navigation.instant
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+
+plugins:
+  - search:
+      lang: pt
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: "https://github.com/rastamansp/gwan-fifa"
+
+
+nav:
+  - Início: index.md

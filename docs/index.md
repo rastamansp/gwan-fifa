@@ -10,8 +10,8 @@ O usuário envia uma **foto + dados pessoais** (nome, nascimento, altura, peso, 
 
 | Ambiente | URL | Estado |
 |----------|-----|--------|
-| Web (produção) | https://fifa.gwan.cloud | 🔴 não deployado |
-| API (produção) | https://api-fifa.gwan.cloud/api | 🔴 não deployado |
+| Web (produção) | https://worldcup.gwan.cloud | 🔴 não deployado |
+| API (produção) | https://api-worldcup.gwan.cloud/api | 🔴 não deployado |
 | Código | **F00 — scaffold** (monorepo + Clean Architecture; adapters/telas stub) | 🟡 em desenvolvimento |
 
 ## Stack

@@ -16,8 +16,8 @@ Gerador de figurinha estilo FIFA/Panini: o usuário envia uma foto + dados e rec
 ```
 gwan-fifa/
 ├── apps/
-│   ├── api/        # NestJS  -> api-fifa.gwan.cloud (dev :3015)
-│   └── web/        # Vite    -> fifa.gwan.cloud     (dev :5188)
+│   ├── api/        # NestJS  -> api-worldcup.gwan.cloud (dev :3015)
+│   └── web/        # Vite    -> worldcup.gwan.cloud     (dev :5188)
 └── packages/
     └── core/       # @gwan-fifa/core (Zod + contratos)
 ```

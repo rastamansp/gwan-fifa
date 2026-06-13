@@ -6,10 +6,10 @@ const DEMO_PHOTO = '/demo-foto.jpg';
 
 /** Dados de exemplo usados no tutorial (texto de demonstração). */
 const DEMO_DATA: StickerData = {
-  name: 'Neymar Jr',
-  birthDate: '05-02-1992',
+  name: 'Maurício',
+  birthDate: '19-09-1986',
   height: '1,75m',
-  weight: '68 kg',
+  weight: '74 kg',
 };
 
 interface Step {

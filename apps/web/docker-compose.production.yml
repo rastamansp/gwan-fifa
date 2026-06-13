@@ -1,11 +1,11 @@
-# Gwan FIFA — stack Web (Portainer). Slot 15 · fifa.gwan.cloud
+# Gwan FIFA — stack Web (Portainer). Slot 15 · worldcup.gwan.cloud
 services:
   gwan-fifa-web:
     build:
       context: ../..
       dockerfile: apps/web/Dockerfile
       args:
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-https://api-fifa.gwan.cloud}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-https://api-worldcup.gwan.cloud}
     image: gwan-fifa-web:latest
     container_name: gwan-fifa-web
     restart: unless-stopped
@@ -23,7 +23,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=gwan-network"
-      - "traefik.http.routers.gwan-fifa-web.rule=Host(`fifa.gwan.cloud`)"
+      - "traefik.http.routers.gwan-fifa-web.rule=Host(`worldcup.gwan.cloud`)"
       - "traefik.http.routers.gwan-fifa-web.entrypoints=websecure"
       - "traefik.http.routers.gwan-fifa-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.gwan-fifa-web.loadbalancer.server.port=80"

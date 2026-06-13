@@ -1,4 +1,4 @@
-# Gwan FIFA — stack API (Portainer). Slot 15 · api-fifa.gwan.cloud
+# Gwan FIFA — stack API (Portainer). Slot 15 · api-worldcup.gwan.cloud
 # Env vars (secrets) definidas na UI do Portainer — nunca commitar valores reais.
 services:
   gwan-fifa-api:
@@ -20,9 +20,9 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: ${MINIO_BUCKET:-stickers}
       SIGNED_URL_TTL: ${SIGNED_URL_TTL:-3600}
-      PUBLIC_URL: ${PUBLIC_URL:-https://fifa.gwan.cloud}
+      PUBLIC_URL: ${PUBLIC_URL:-https://worldcup.gwan.cloud}
       GWAN_SITE_URL: ${GWAN_SITE_URL:-https://gwan.cloud}
-      CORS_ORIGIN: ${CORS_ORIGIN:-https://fifa.gwan.cloud}
+      CORS_ORIGIN: ${CORS_ORIGIN:-https://worldcup.gwan.cloud}
     networks:
       - gwan-network
     logging:
@@ -37,7 +37,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=gwan-network"
-      - "traefik.http.routers.gwan-fifa-api.rule=Host(`api-fifa.gwan.cloud`)"
+      - "traefik.http.routers.gwan-fifa-api.rule=Host(`api-worldcup.gwan.cloud`)"
       - "traefik.http.routers.gwan-fifa-api.entrypoints=websecure"
       - "traefik.http.routers.gwan-fifa-api.tls.certresolver=letsencrypt"
       - "traefik.http.services.gwan-fifa-api.loadbalancer.server.port=3000"

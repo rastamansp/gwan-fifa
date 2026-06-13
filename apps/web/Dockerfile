@@ -1,12 +1,12 @@
 # Gwan FIFA — Web (React/Vite -> nginx) | build context = raiz do monorepo
-# build: docker build -f apps/web/Dockerfile --build-arg VITE_API_BASE_URL=https://api-fifa.gwan.cloud -t gwan-fifa-web .
+# build: docker build -f apps/web/Dockerfile --build-arg VITE_API_BASE_URL=https://api-worldcup.gwan.cloud -t gwan-fifa-web .
 
 # ===== build =====
 FROM node:20-bookworm-slim AS build
 WORKDIR /app
 
 # URL da API e injetada no bundle em build-time (Vite)
-ARG VITE_API_BASE_URL=https://api-fifa.gwan.cloud
+ARG VITE_API_BASE_URL=https://api-worldcup.gwan.cloud
 ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
 COPY package.json package-lock.json turbo.json tsconfig.base.json ./

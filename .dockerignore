@@ -1,0 +1,19 @@
+# Build sempre limpo dentro da imagem (npm ci + build)
+**/node_modules
+**/dist
+**/.turbo
+**/*.tsbuildinfo
+.git
+.github
+**/*.log
+
+# Segredos e ambiente local — nunca no contexto de build
+**/.env
+**/.env.*
+!**/.env.example
+
+# Docs / site estatico
+docs
+site
+_site
+.cache

@@ -39,8 +39,8 @@ export function StickerPreview({ result, onRestart }: StickerPreviewProps) {
       </div>
 
       <p className="mock-note">
-        Pré-visualização <strong>mock</strong> (composição no navegador). A versão
-        final usará Claude (visão) + composição no servidor.
+        Gerada no servidor (composição <code>sharp</code> + MinIO). O link de
+        download é temporário.
       </p>
     </section>
   );

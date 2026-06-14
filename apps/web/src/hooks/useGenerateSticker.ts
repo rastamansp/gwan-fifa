@@ -1,41 +1,63 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import type { StickerData, StickerResult } from '@gwan-fifa/core';
-import { composeSticker } from '../lib/compose-sticker';
+import { generate, poll } from '../api/client';
 
 export type FlowState = 'idle' | 'uploading' | 'processing' | 'done' | 'error';
 
+const POLL_INTERVAL_MS = 1000;
+const MAX_ATTEMPTS = 30;
+
 /**
- * MOCK do fluxo de geração (sem backend), para iterar a UI e o SDD.
- * idle → uploading → processing → done/error.
- *
- * Compõe a figurinha no client (canvas). Quando o backend MVP existir,
- * troca-se este corpo por `generate()` + polling de `poll()` em `api/client.ts`,
- * mantendo a mesma interface do hook.
+ * Fluxo real: idle → uploading → processing → done/error.
+ * `POST /api/generate` (multipart) e polling de `GET /api/result/:id` até
+ * `done`/`error` (REQ-FE-02 / F06). A figurinha vem do backend (sharp + MinIO).
  */
 export function useGenerateSticker() {
   const [state, setState] = useState<FlowState>('idle');
   const [result, setResult] = useState<StickerResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const cancelled = useRef(false);
 
   const reset = useCallback(() => {
+    cancelled.current = true;
     setState('idle');
     setResult(null);
     setError(null);
   }, []);
 
   const submit = useCallback(async (file: File, data: StickerData) => {
+    cancelled.current = false;
     setError(null);
     setResult(null);
     setState('uploading');
     try {
-      // Simula latência de upload + análise (NFR-PERF-01 alvo ≤10s).
-      await delay(450);
-      setState('processing');
-      await delay(900);
+      const form = new FormData();
+      form.append('file', file);
+      form.append('name', data.name);
+      if (data.birthDate) form.append('birthDate', data.birthDate);
+      if (data.height) form.append('height', data.height);
+      if (data.weight) form.append('weight', data.weight);
 
-      const imageUrl = await composeSticker(file, data);
-      setResult({ id: mockId(), status: 'done', imageUrl });
-      setState('done');
+      const { id } = await generate(form);
+      setState('processing');
+
+      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+        if (cancelled.current) return;
+        const r = await poll(id);
+        if (r.status === 'done') {
+          setResult(r);
+          setState('done');
+          return;
+        }
+        if (r.status === 'error') {
+          setError(r.error ?? 'Falha ao gerar a figurinha.');
+          setState('error');
+          return;
+        }
+        await new Promise((res) => setTimeout(res, POLL_INTERVAL_MS));
+      }
+      setError('Tempo esgotado. Tente novamente.'); // RN-F06-02
+      setState('error');
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
       setState('error');
@@ -43,12 +65,4 @@ export function useGenerateSticker() {
   }, []);
 
   return { state, result, error, submit, reset };
-}
-
-function delay(ms: number): Promise<void> {
-  return new Promise((res) => setTimeout(res, ms));
-}
-
-function mockId(): string {
-  return `mock-${Math.random().toString(36).slice(2, 10)}`;
 }

@@ -16,7 +16,7 @@ export function App() {
     <div className="app">
       <header className="app-header">
         <h1>
-          Gwan FIFA <span className="badge-mock">mock</span>
+          Gwan FIFA <span className="badge-mock">dev</span>
         </h1>
         <p>Gere sua figurinha estilo card de copa.</p>
         <button className="link-demo" onClick={() => setDemoOpen(true)}>

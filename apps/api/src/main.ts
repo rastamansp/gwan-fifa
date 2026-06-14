@@ -1,4 +1,10 @@
 import 'reflect-metadata';
+import { config as loadEnv } from 'dotenv';
+import { resolve } from 'node:path';
+// Carrega .env: da raiz do monorepo (../../.env) e do cwd, antes de ler env.
+loadEnv({ path: resolve(process.cwd(), '../../.env') });
+loadEnv();
+
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';

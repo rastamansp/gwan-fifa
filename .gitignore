@@ -19,9 +19,9 @@ apps/web/dist/
 site/
 _site/
 
-# Foto de demonstração: usar asset com direito de uso (RN-F10-01). NAO publicar
-# imagens de terceiros (ex.: figurinhas/fotos oficiais). Mantida local apenas.
-apps/web/public/demo-foto.jpg
+# Foto de demonstração (F10): copiada de apps/gwan-fifa/farofa.jpg pelo make.ps1.
+# NAO publicar imagens de terceiros (figurinhas/fotos oficiais) — RN-F10-01.
+apps/web/public/farofa.jpg
 
 # logs
 *.log

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { StickerData } from '@gwan-fifa/core';
 import { composeSticker } from '../lib/compose-sticker';
 
-const DEMO_PHOTO = '/demo-foto.jpg';
+const DEMO_PHOTO = '/farofa.jpg';
 
 /** Dados de exemplo usados no tutorial (texto de demonstração). */
 const DEMO_DATA: StickerData = {
@@ -65,7 +65,7 @@ export function DemoModal({ open, onClose }: DemoModalProps) {
       try {
         const res = await fetch(DEMO_PHOTO);
         const blob = await res.blob();
-        const file = new File([blob], 'demo-foto.jpg', {
+        const file = new File([blob], 'farofa.jpg', {
           type: blob.type || 'image/jpeg',
         });
         setSticker(await composeSticker(file, DEMO_DATA));

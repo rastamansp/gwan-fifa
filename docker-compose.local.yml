@@ -1,0 +1,45 @@
+# Deploy LOCAL (espelho da produção) para validar antes de subir ao Portainer.
+# Sobe API (NestJS) + Web (nginx) em containers; usa o MinIO local do host.
+#
+# Uso:
+#   docker compose -f docker-compose.local.yml up --build -d
+#   Web  -> http://localhost:8080
+#   API  -> http://localhost:3015/api
+#   (Pré-requisito: MinIO local em 0.0.0.0:9000 e .env preenchido com ANTHROPIC_API_KEY)
+#
+# Obs.: produção usa Traefik/SSL + MinIO em s3.gwan.cloud (sem portas publicadas) — este
+# arquivo é só para teste local e NÃO é o compose de produção.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    image: gwan-fifa-api:local
+    ports:
+      - "3015:3000"
+    env_file:
+      - .env
+    environment:
+      # porta interna do container (sobrepõe PORT do .env) — casa com o map 3015:3000
+      PORT: "3000"
+      # MinIO do host: IP da LAN é alcançável tanto pelo container quanto pelo
+      # navegador (necessário para a URL assinada funcionar nos dois lados).
+      MINIO_ENDPOINT: "192.168.3.193"
+      MINIO_PORT: "9000"
+      MINIO_USE_SSL: "false"
+      CORS_ORIGIN: "http://localhost:8080"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VITE_API_BASE_URL: "http://localhost:3015"
+    image: gwan-fifa-web:local
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    restart: unless-stopped

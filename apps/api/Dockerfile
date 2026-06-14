@@ -24,6 +24,11 @@ RUN npm prune --omit=dev
 
 # ===== runtime =====
 FROM node:20-bookworm-slim AS runtime
+# Fontes para o librsvg renderizar os textos da figurinha (sharp/SVG).
+# Sem isso, os textos somem no Linux (Arial não existe; cai no fallback).
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends fonts-liberation fontconfig \
+ && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
